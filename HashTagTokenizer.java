@@ -5,6 +5,7 @@ public class HashTagTokenizer {
 	public static void main(String[] args) {
 
 		String hashTag = args[0];
+		// String hashTag = "iloverecursion";
 		String []dictionary = readDictionary("dictionary.txt");
 		breakHashTag(hashTag, dictionary);
 	}
@@ -13,6 +14,9 @@ public class HashTagTokenizer {
 		String[] dictionary = new String[3000];
 
 		In in = new In(fileName);
+		for (int i = 0; i < dictionary.length; i++) {
+			dictionary[i] = in.readLine();
+        }
 
 		// Your code here
 
@@ -20,8 +24,14 @@ public class HashTagTokenizer {
 	}
 
 	public static boolean existInDictionary(String word, String []dictionary) {
-		// Your code here
+		for (int i = 0; i < dictionary.length; i++) {
+			if (word.equals(dictionary[i])) {
+                return true;
+            }
+		}
+		return false;
 	}
+	
 
 	public static void breakHashTag(String hashtag, String[] dictionary) {
 
@@ -29,12 +39,23 @@ public class HashTagTokenizer {
         if (hashtag.isEmpty()) {
             return;
         }
+		if(hashtag.length()<=1){
+			System.out.println(hashtag.substring( 0));
+		    return;
+		}
+
  
         int N = hashtag.length();
 
         for (int i = 1; i <= N; i++) {
-		
-        }
-    }
+			String start = hashtag.substring(0, i).toLowerCase();
+			if(existInDictionary(start,dictionary)) {
+				System.out.println(start);
+				breakHashTag(hashtag.substring(i), dictionary);
+	
+     }
 
+	}
+
+	}
 }
